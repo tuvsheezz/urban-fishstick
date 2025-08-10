@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Depends
 
+from src.authors.repository import AuthorRepository
+
 from .repository import BookRepository
 from .schemas import Book
 from .service import BookService
@@ -8,8 +10,9 @@ router = APIRouter()
 
 
 def get_book_service() -> BookService:
-    repository = BookRepository()
-    return BookService(repository)
+    book_repository = BookRepository()
+    author_repository = AuthorRepository()
+    return BookService(book_repository, author_repository)
 
 
 @router.get("", response_model=list[Book])

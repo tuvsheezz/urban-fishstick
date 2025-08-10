@@ -1,19 +1,26 @@
 from fastapi import HTTPException, status
+from pydantic import BaseModel
 
-from .schemas import Book
 
-books_db: dict[int, Book] = {
-    1: Book(book_id=1, title="The Great Gatsby", author="F. Scott Fitzgerald"),
-    2: Book(book_id=2, title="To Kill a Mockingbird", author="Harper Lee"),
-    3: Book(book_id=3, title="1984", author="George Orwell"),
+# このリポジトリが管理するデータの内部表現
+class BookInDB(BaseModel):
+    book_id: int
+    title: str
+    author_id: int
+
+
+books_db: dict[int, BookInDB] = {
+    1: BookInDB(book_id=1, title="The Great Gatsby", author_id=1),
+    2: BookInDB(book_id=2, title="To Kill a Mockingbird", author_id=2),
+    3: BookInDB(book_id=3, title="1984", author_id=3),
 }
 
 
 class BookRepository:
-    def get_all_books(self) -> list[Book]:
+    def get_all_books(self) -> list[BookInDB]:
         return list(books_db.values())
 
-    def get_book_by_id(self, book_id: int) -> Book:
+    def get_book_by_id(self, book_id: int) -> BookInDB:
         book = books_db.get(book_id)
         if book is None:
             raise HTTPException(
