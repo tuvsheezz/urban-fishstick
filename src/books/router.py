@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 
-from src.authors.repository import AuthorRepository
+from authors.repository import AuthorRepository
 
 from .repository import BookRepository
 from .schemas import Book

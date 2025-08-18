@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from src.authors.router import router as authors_router
-from src.books.router import router as books_router
+from authors.router import router as authors_router
+from books.router import router as books_router
 
 app = FastAPI()
 

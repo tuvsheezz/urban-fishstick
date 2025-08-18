@@ -21,7 +21,7 @@ class BookRepository:
         return list(books_db.values())
 
     def get_book_by_id(self, book_id: int) -> BookInDB:
-        book = books_db.get(book_id)
+        book: BookInDB | None = books_db.get(book_id)
         if book is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, detail="Book not found"

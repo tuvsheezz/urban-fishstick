@@ -14,7 +14,7 @@ class AuthorRepository:
         return list(authors_db.values())
 
     def get_author_by_id(self, author_id: int) -> Author:
-        author = authors_db.get(author_id)
+        author: Author | None = authors_db.get(author_id)
         if author is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, detail="Author not found"
